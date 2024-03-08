@@ -136,23 +136,47 @@ class Evenement1Controller extends Controller
    
     return view('evenements.display', compact('evenements'));
 }
+// public function search(Request $request)
+// {
+//     $query = $request->input('search');
+//     dd($query);
+
+//     // Retrieve the first event that matches the search title
+//     $evenement = Evenement::where('title', 'like', '%' . $query . '%')->first();
+
+//     // If an event is found, redirect to its show page
+//     if ($evenement) {
+//         return Redirect::route('evenements.show', ['evenement' => $evenement]);
+//     }
+
+//     // If no event is found, display the index page with the search results
+//     $evenements = Evenement::when($query, function ($queryBuilder) use ($query) {
+//         $queryBuilder->where('title', 'like', '%' . $query . '%');
+//     })->paginate(10);
+
+//     return view('evenements.index', compact('evenements'));
+// }
 public function search(Request $request)
 {
     $query = $request->input('search');
-    
-    // Retrieve the first event that matches the search title
-    $evenement = Evenement::where('title', 'like', '%' . $query . '%')->first();
 
-    // If an event is found, redirect to its show page
-    if ($evenement) {
-        return Redirect::route('evenements.show', ['evenement' => $evenement]);
-    }
+    $evenements = Evenement::where('title', 'like', '%' . $query . '%')->get();
 
-    // If no event is found, display the index page with the search results
-    $evenements = Evenement::when($query, function ($queryBuilder) use ($query) {
-        $queryBuilder->where('title', 'like', '%' . $query . '%');
-    })->paginate(10);
-
-    return view('evenements.index', compact('evenements'));
+    return view('evenements.search', compact('evenements'));
 }
+
+public function reserve(Evenement $evenement)
+{
+    // Implement your reservation logic here
+    // You might want to create a Reservation model and handle the creation of reservations
+
+    // For example:
+    $reservation = new Reservation();
+    $reservation->event_id = $evenement->id;
+    $reservation->user_id = auth()->id(); // Assuming you're using authentication
+    $reservation->save();
+
+    return redirect()->route('evenements.index')->with('success', 'Reservation made successfully.');
+}
+
 }

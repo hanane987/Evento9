@@ -30,6 +30,10 @@
                             <p class="card-text"><strong>Category:</strong> {{ $evenement->category->name }}</p>
                             <p class="card-text"><strong>Status:</strong> {{ $evenement->status }}</p>
                             <a href="{{ route('evenements.show', $evenement->id) }}" class="btn btn-primary">View Details</a>
+                            <form action="{{ route('evenements.reserve', $evenement->id) }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-success">Make Reservation</button>
+                    </form>
                         </div>
                     </div>
                 </div>

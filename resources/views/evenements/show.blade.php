@@ -20,6 +20,7 @@
                 <!-- Add any additional details or features specific to the event show page -->
 
                 <a href="{{ route('evenements.index') }}" class="btn btn-secondary mt-3">Back to Events</a>
+                 <a href="{{ route('evenements.index') }}" class="btn btn-secondary mt-3">Reserve </a>
             </div>
         </div>
     </div>

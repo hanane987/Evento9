@@ -69,9 +69,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
+    
+    // Route::get('/evenement', [Evenement1Controller::class, 'search'])->name('evenements.index');
+    Route::get('/evenement/search', [Evenement1Controller::class, 'search'])->name('evenements.search');
+    Route::get('/evenements/{evenement}', [Evenement1Controller::class, 'show'])->name('evenements.show');
+    Route::post('/evenement', [Evenement1Controller::class, 'reserve'])->name('evenements.reserve');
     Route::get('/evenement', [Evenement1Controller::class, 'display'])->name('evenements_dis');
-    Route::get('/evenement', [Evenement1Controller::class, 'search'])->name('evenements.index');
-    Route::get('/evenement/search', [EvenementController::class, 'search'])->name('evenements.search');
+
+
+
     // Route::get('/evenements/{evenement}', [Evenement1Controller::class, 'show'])->name('evenements.show');
 
 
