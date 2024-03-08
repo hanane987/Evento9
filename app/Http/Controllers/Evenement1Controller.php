@@ -133,6 +133,26 @@ class Evenement1Controller extends Controller
     public function display()
 {
     $evenements = Evenement::all();
+   
     return view('evenements.display', compact('evenements'));
+}
+public function search(Request $request)
+{
+    $query = $request->input('search');
+    
+    // Retrieve the first event that matches the search title
+    $evenement = Evenement::where('title', 'like', '%' . $query . '%')->first();
+
+    // If an event is found, redirect to its show page
+    if ($evenement) {
+        return Redirect::route('evenements.show', ['evenement' => $evenement]);
+    }
+
+    // If no event is found, display the index page with the search results
+    $evenements = Evenement::when($query, function ($queryBuilder) use ($query) {
+        $queryBuilder->where('title', 'like', '%' . $query . '%');
+    })->paginate(10);
+
+    return view('evenements.index', compact('evenements'));
 }
 }

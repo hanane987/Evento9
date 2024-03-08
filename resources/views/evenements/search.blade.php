@@ -1,22 +1,12 @@
-<!-- resources/views/evenements/index.blade.php -->
-
-@extends('layouts.app') <!-- Assuming you have a layout file, adjust this according to your setup -->
+@extends('layouts.app')
 
 @section('content')
     <div class="container">
-       <div class="mb-4">
-            <form action="{{ route('evenements.index') }}" method="GET" class="form-inline">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search by title..." name="search" value="{{ request('search') }}">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        
+        <h2>Search Results for "{{ $query }}"</h2>
+
+        <!-- Event Cards -->
         <div class="row">
-            @foreach($evenements as $evenement)
+            @forelse($evenements as $evenement)
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <img src="{{ asset('storage/' . $evenement->image) }}" class="card-img-top" alt="{{ $evenement->title }}">
@@ -33,11 +23,14 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <p>No events found.</p>
+            @endforelse
         </div>
-    </div>
-     <div class="d-flex justify-content-center">
-            {{-- {{ $evenements->appends(request()->except('page'))->links() }} --}}
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-center">
+            {{ $evenements->appends(request()->except('page'))->links() }}
         </div>
     </div>
 @endsection

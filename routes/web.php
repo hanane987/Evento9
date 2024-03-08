@@ -68,9 +68,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('categories', Category1Controller::class);
 });
 
-// Route::middleware(['auth', 'role:user'])->group(function () {
-//     Route::get('/evenements', [Evenement1Controller::class, 'display'])->name('evenements.display');
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/evenement', [Evenement1Controller::class, 'display'])->name('evenements_dis');
+    Route::get('/evenement', [Evenement1Controller::class, 'search'])->name('evenements.index');
+    Route::get('/evenement/search', [EvenementController::class, 'search'])->name('evenements.search');
+    // Route::get('/evenements/{evenement}', [Evenement1Controller::class, 'show'])->name('evenements.show');
+
+
+
     
-// });
+});
 
 require __DIR__.'/auth.php';

@@ -42,9 +42,9 @@
 @endrole
 
  @role('user')
-    <x-nav-link :href="route('evenements.display')" :active="request()->routeIs('evenements.display')">
-        {{ __('Field') }}
-    </x-nav-link>
+    <a href="{{route('evenements_dis')}}" >
+      Field
+    </a>
 
    
 @endrole
