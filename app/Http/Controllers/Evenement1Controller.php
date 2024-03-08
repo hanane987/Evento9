@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Evenement;
-use App\Models\Reservation;
+use App\Models\reservation;
+// use App\Models\reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -117,29 +118,18 @@ class Evenement1Controller extends Controller
     }
     public function showReservationsStatistics()
     {
-        // Récupérer les événements pour l'utilisateur actuel
+        // Retrieve events for the current user
         $evenements = Evenement::where('users_id', auth()->id())->get();
         
-        // Initialiser le tableau pour les statistiques
-        $statistics = [];
+        // Retrieve reservation statistics using WithCount
+        // $reservations = reservation::withCount('reseravtion')->get();
     
-        foreach ($evenements as $evenement) {
-            $totalReservations = $evenement->reservations->count();
-    
-            $autreStatistique = // Logique pour calculer d'autres statistiques;
-    
-            $statistics[] = [
-                'evenement' => $evenement,
-                'totalReservations' => $totalReservations,
-                'autreStatistique' => $autreStatistique,
-            ];
-        }
-    
+        // Retrieve all categories
         $categories = Category::all();
     
-        // Passez les données à la vue
-        return view('evenements.reservations_statistics', compact('statistics', 'categories'));
+        return view('evenements.reservations_statistics', compact('evenements', 'categories'));
     }
+    
     public function display()
 {
     $evenements = Evenement::all();

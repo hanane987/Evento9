@@ -47,25 +47,30 @@ Route::middleware('auth')->group(function () {
     // Route::get('/evenements/reservations_statistics', [EvenementController::class, 'reservationsStatistics'])->name('evenements.reservations_statistics');
 // In your routes/web.php file
 
-Route::get('/evenements/{evenement}/reservations_statistics', [Evenement1Controller::class, 'showReservationsStatistics'])->name('evenements.show_reservations_statistics');
+// Route::get('/evenements/{evenement}/reservations_statistics', [Evenement1Controller::class, 'showReservationsStatistics'])->name('evenements.show_reservations_statistics');
 
-    Route::get('/categories/statistics', [Category1Controller::class, 'statistics'])->name('categories.statistics');
-    Route::resource('categories', Category1Controller::class);
+    
 
     
 });
 Route::middleware(['auth', 'role:organisateure'])->group(function () {
-    // ... other routes
 
     Route::get('/reservations-statistics', [Evenement1Controller::class, 'showReservationsStatistics'])
         ->name('evenements.reservations_statistics');
-        Route::get('/evenements', [Evenement1Controller::class, 'display'])->name('evenements.display');
-
+        // Route::get('/evenements', [Evenement1Controller::class, 'display'])->name('evenements.display');
+        Route::get('/evenements', [Evenement1Controller::class, 'index'])->name('evenements.index');
 });
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/user', [UserController::class, 'index'])->name('users_8');
     Route::post('/users/{user}/switch-role', [UserController::class, 'switchRole'])->name('users.switchRole');
     Route::delete('/users/{user}/soft-delete', [UserController::class, 'softDelete'])->name('users.softDelete');
+    Route::get('/categories/statistics', [Category1Controller::class, 'statistics'])->name('categories.statistics');
+    Route::resource('categories', Category1Controller::class);
 });
+
+// Route::middleware(['auth', 'role:user'])->group(function () {
+//     Route::get('/evenements', [Evenement1Controller::class, 'display'])->name('evenements.display');
+    
+// });
 
 require __DIR__.'/auth.php';

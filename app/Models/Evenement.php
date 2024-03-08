@@ -2,9 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Category;
+
+
+use App\Models\reservation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class Evenement extends Model
 {
     use HasFactory, SoftDeletes;
@@ -33,7 +38,7 @@ class Evenement extends Model
     }
     public function reservations()
 {
-    return $this->hasMany(Reservation::class);
+    return $this->hasMany(reservation::class);
 }
 
 }

@@ -2,7 +2,11 @@
 
 @extends('layouts.app')
 
-@foreach ($statisticsData as $statisticsItem)
-    <p>{{ $statisticsItem['evenement']->title }} - Total Reservations: {{ $statisticsItem['totalReservations'] }}</p>
-    <!-- Add other statistics as needed -->
+@section('content')
+
+@foreach ($evenements as $evenement)
+    <p>Event Title: {{ $evenement->title }}</p>
+    <p>Number of Reservations: {{ $evenement->reservation_count }}</p>
 @endforeach
+
+@endsection

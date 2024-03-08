@@ -35,9 +35,10 @@
     <x-nav-link :href="route('categories.statistics')" :active="request()->routeIs('categories.statistics')">
         {{ __('Category Statistics') }}
     </x-nav-link>
-    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
-    {{ __('Users Manage') }}
-</x-nav-link>
+
+   {{-- <x-nav-link :href="route('users_8')" :active="request()->routeIs('users_8')">
+        {{ __('Category') }}
+    </x-nav-link> --}}
 @endrole
 
  @role('user')

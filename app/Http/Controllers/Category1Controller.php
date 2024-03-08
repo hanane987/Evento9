@@ -23,9 +23,9 @@ class Category1Controller extends Controller
     public function create()
 {
     // Fetch categories data from your database or other source
-    $categories = Category::all(); // Adjust this based on your actual data retrieval
+     // Adjust this based on your actual data retrieval
 
-    return view('evenements.create', compact('categories'));
+    return view('categories.create');
 }
 
     /**
